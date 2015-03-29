@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325122323) do
+ActiveRecord::Schema.define(version: 20150325155950) do
+
+  create_table "rides", force: :cascade do |t|
+    t.string   "direction"
+    t.datetime "time"
+    t.string   "type"
+    t.integer  "freeSeats"
+    t.string   "fromAddress"
+    t.string   "toAddress"
+    t.string   "fromCity"
+    t.string   "toCity"
+    t.integer  "user_id"
+    t.string   "status"
+    t.integer  "ride_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

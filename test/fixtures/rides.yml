@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  direction: MyString
+  time: 2015-03-25 16:59:50
+  type: RideRequest
+  freeSeats: 1
+  fromAddress: MyString
+  toAddress: MyString
+  fromCity: MyString
+  toCity: MyString
+  user_id: 1
+  status: MyString
+  ride_id: 1
+
+two:
+  direction: MyString
+  time: 2015-03-25 16:59:50
+  type: RideOffer
+  freeSeats: 1
+  fromAddress: MyString
+  toAddress: MyString
+  fromCity: MyString
+  toCity: MyString
+  user_id: 1
+  status: MyString
+  ride_id: 1

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :rides
+  resources :ride_requests, controller: 'rides', type: 'RideReqest'
+  resources :ride_offers, controller: 'rides', type: 'RideOffer'
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
