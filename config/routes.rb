@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :offices
+
   resources :companies
 
   resources :rides

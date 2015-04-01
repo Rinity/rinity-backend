@@ -26,6 +26,10 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
 
+    unless @company.valid?
+      puts company_params
+      puts @company.errors.full_messages
+    end
     respond_to do |format|
       if @company.save
         format.html { redirect_to @company, notice: 'Company was successfully created.' }
@@ -69,6 +73,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :domain, :address)
+      params.require(:company).permit(:name, :domain, :address, offices_attributes: [:name, :address])
     end
 end

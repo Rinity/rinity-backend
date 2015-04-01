@@ -2,16 +2,10 @@
 
 one:
   name: MyString
-  email: MyString
   address: MyString
-  city: MyString
-  default_office: one
   company: one
 
 two:
-  name: Csaba Nagy
-  email: csaba@rinity.com
-  address: 2 civis.
-  city: Debrecen
-  default_office: two
+  name: MyString
+  address: MyString
   company: two
