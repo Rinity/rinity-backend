@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :companies
+
   resources :rides
   resources :ride_requests, controller: 'rides', type: 'RideReqest'
   resources :ride_offers, controller: 'rides', type: 'RideOffer'

@@ -5,9 +5,11 @@ one:
   email: MyString
   address: MyString
   city: MyString
+  company: one
 
 two:
-  name: MyString
-  email: MyString
-  address: MyString
-  city: MyString
+  name: Csaba Nagy
+  email: csaba@rinity.com
+  address: 2 civis.
+  city: Debrecen
+  company: two
