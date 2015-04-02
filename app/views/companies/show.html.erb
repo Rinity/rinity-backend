@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @company.name %>
-</p>
+</h1>
 
 <p>
   <strong>Domain:</strong>
@@ -14,6 +13,13 @@
   <strong>Address:</strong>
   <%= @company.address %>
 </p>
+
+<h3>Offices:</h3>
+<ul>
+	<% @company.offices.each do |office| %>
+		<li><%= office.name %>: <%= office.address %></li>
+	<% end %>
+</ul>
 
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>

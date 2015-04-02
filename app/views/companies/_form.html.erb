@@ -23,6 +23,25 @@
     <%= f.label :address %><br>
     <%= f.text_field :address %>
   </div>
+	<h3>Office</h3>
+  <div class="field">
+	<%= f.fields_for :offices do |builder| %>
+		<div class="field">
+		  <%= builder.label :name %><br>
+		  <%= builder.text_field :name %>
+		</div>
+		<div class="field">
+		  <%= builder.label :address %><br>
+		  <%= builder.text_field :address %>
+		</div>
+		<!--< unless builder.object.nil? || builder.object.new_record? %>-->
+		<p>
+		  <%= builder.label :_destroy, 'Remove:' %>
+		  <%= builder.check_box :_destroy %>
+		</p>
+		<!--< end %>-->
+  <% end %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
