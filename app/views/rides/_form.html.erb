@@ -13,20 +13,26 @@
 
   <div class="field">
     <%= f.label :direction %><br>
-    <%= f.text_field :direction %>
+    <%= f.select :direction, Ride.direction_options %>
   </div>
   <div class="field">
     <%= f.label :time %><br>
     <%= f.datetime_select :time %>
   </div>
+  <%= f.hidden_field :type %>
+  <%= f.hidden_field :user_id %>
+
+  <% if @ride.type == 'RideOffer' %>
+    <div class="field">
+      <%= f.label :freeSeats %><br>
+      <%= f.number_field :freeSeats %>
+    </div>
+  <% end %>
   <div class="field">
     <%= f.label :type %><br>
     <%= f.select :type, Ride.select_options %>
   </div>
-  <div class="field">
-    <%= f.label :freeSeats %><br>
-    <%= f.number_field :freeSeats %>
-  </div>
+
   <div class="field">
     <%= f.label :fromAddress %><br>
     <%= f.text_field :fromAddress %>
@@ -44,16 +50,8 @@
     <%= f.text_field :toCity %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
     <%= f.label :status %><br>
     <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :ride_id %><br>
-    <%= f.number_field :ride_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @passenger = @user.becomes(Passenger) if @user.type == 'Passenger'
+    @driver = @user.becomes(Driver) if @user.type == 'Driver'
   end
 
   # GET /users/new

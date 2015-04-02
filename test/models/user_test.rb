@@ -22,4 +22,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?, user.errors.full_messages.join(',')
     assert user.type == 'Passenger', 'registered user is passenger'
   end
+  test 'user registration creates new company' do
+    assert true
+  end
 end

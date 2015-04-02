@@ -12,13 +12,15 @@ class RidesControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    session[:user_id] = users(:one).id
+    session[:user_type] = 'Passenger'
     get :new
     assert_response :success
   end
 
   test "should create ride" do
     assert_difference('Ride.count') do
-      post :create, ride: { direction: @ride.direction, freeSeats: @ride.freeSeats, fromAddress: @ride.fromAddress, fromCity: @ride.fromCity, ride_id: @ride.ride_id, status: @ride.status, time: @ride.time, toAddress: @ride.toAddress, toCity: @ride.toCity, type: @ride.type, user_id: @ride.user_id }
+      post :create, ride: { direction: @ride.direction, freeSeats: @ride.freeSeats, fromAddress: @ride.fromAddress, fromCity: @ride.fromCity, ride_id: @ride.ride_id, status: @ride.status, time: @ride.time, toAddress: @ride.toAddress, toCity: @ride.toCity, type: @ride.type, user_id: @ride.user_id }, session: {:user_id => users(:one).id, :user_type => 'Passenger' }
     end
 
     assert_redirected_to ride_path(assigns(:ride))

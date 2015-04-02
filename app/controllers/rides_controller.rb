@@ -14,7 +14,11 @@ class RidesController < ApplicationController
 
   # GET /rides/new
   def new
-    @ride = Ride.new
+    if session[:user_type] == 'Passenger'
+      @ride = Passenger.find(session[:user_id]).ride_requests.build
+    else
+      @ride = Driver.find(session[:user_id]).ride_offers.build
+    end
   end
 
   # GET /rides/1/edit

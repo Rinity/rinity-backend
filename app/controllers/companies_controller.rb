@@ -27,10 +27,6 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
 
-    unless @company.valid?
-      puts company_params
-      puts @company.errors.full_messages
-    end
     respond_to do |format|
       if @company.save
         format.html { redirect_to @company, notice: 'Company was successfully created.' }

@@ -29,4 +29,7 @@ class Ride < ActiveRecord::Base
   def self.select_options
     descendants.map { |c| c.to_s }.sort
   end
+  def self.direction_options
+    ['to_home','to_office']
+  end
 end

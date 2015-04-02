@@ -2,16 +2,18 @@
 
 one:
   name: MyString
-  email: MyString
+  email: a@example.net
   address: MyString
   city: MyString
   default_office: one
+  type: Passenger
   company: one
 
 two:
   name: Csaba Nagy
   email: csaba@rinity.com
-  address: 2 civis.
+  address: 2 civis
   city: Debrecen
   default_office: two
+  type: Passenger
   company: two

@@ -19,7 +19,7 @@ class CompaniesControllerTest < ActionController::TestCase
   test "should create company" do
     assert_difference('Company.count') do
       office = @company.offices.first
-      response = post :create, company: { address: @company.address, domain: @company.domain, name: @company.name, offices_attributes: [{name: office.name, address: office.address}]}
+      response = post :create, company: { address: @company.address, domain: @company.domain+'_', name: @company.name, offices_attributes: [{name: office.name, address: office.address}]}
       # head, status, body = *response
       # puts body.inspect
     end

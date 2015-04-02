@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
+  get 'session/new'
+  post 'session/create'
+  get 'session/destroy'
+  resource :session, only: [:new, :create, :destroy]
   resources :offices
 
   resources :companies
 
   resources :rides
-  resources :ride_requests, controller: 'rides', type: 'RideReqest'
+  resources :ride_requests, controller: 'rides', type: 'RideRequest'
   resources :ride_offers, controller: 'rides', type: 'RideOffer'
   resources :users
+  resources :drivers, controller: 'users', type: 'Driver'
+  resources :passengers, controller: 'users', type: 'Passenger'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
