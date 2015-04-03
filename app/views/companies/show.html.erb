@@ -17,7 +17,18 @@
 <h3>Offices:</h3>
 <ul>
 	<% @company.offices.each do |office| %>
-		<li><%= office.name %>: <%= office.address %></li>
+		<li><%= link_to office.name, office_path(office) %>: <%= office.address %></li>
+	<% end %>
+</ul>
+
+<h3>Employees:</h3>
+<ul>
+	<% @company.employees.each do |employee| %>
+		<li><%= employee.name %>: <%= employee.address %>
+				<% if employee.default_office %>
+		      <%= employee.default_office.name %>
+		  <% end %>
+		</li>
 	<% end %>
 </ul>
 

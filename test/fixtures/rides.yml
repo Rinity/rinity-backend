@@ -12,6 +12,7 @@ one:
   user_id: 1
   status: MyString
   ride_id: 1
+  office: one
 
 two:
   direction: MyString
@@ -25,3 +26,20 @@ two:
   user_id: 1
   status: MyString
   ride_id: 1
+  office: two
+
+# req1: going home
+request_1:
+  direction: to_home
+  office: vezer
+  time: 2015-03-25 16:59:50
+  type: RideRequest
+  user: passenger_1
+
+#req2: going home
+request_2:
+  direction: to_home
+  time: 2015-03-25 16:59:50
+  type: RideRequest
+  office: lyons
+  user: passenger_2

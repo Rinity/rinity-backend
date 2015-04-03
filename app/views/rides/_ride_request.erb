@@ -11,38 +11,18 @@
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @ride.type %>
+  <strong>From:</strong>
+  <%= @ride.fromAddress %>,<%= @ride.fromCity %>
 </p>
 
 <p>
-  <strong>Freeseats:</strong>
-  <%= @ride.freeSeats %>
+  <strong>To:</strong>
+  <%= @ride.toAddress %>, <%= @ride.toCity %>
 </p>
 
 <p>
-  <strong>Fromaddress:</strong>
-  <%= @ride.fromAddress %>
-</p>
-
-<p>
-  <strong>Toaddress:</strong>
-  <%= @ride.toAddress %>
-</p>
-
-<p>
-  <strong>Fromcity:</strong>
-  <%= @ride.fromCity %>
-</p>
-
-<p>
-  <strong>Tocity:</strong>
-  <%= @ride.toCity %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @ride.user_id %>
+  <strong>Passenger:</strong>
+  <%= @ride.user.name %>
 </p>
 
 <p>
@@ -51,6 +31,6 @@
 </p>
 
 <p>
-  <strong>Ride:</strong>
-  <%= @ride.ride_id %>
+  <strong>Paired:</strong>
+  <%= !@ride.ride_id.nil? %>
 </p>

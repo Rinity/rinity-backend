@@ -1,19 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @office.name %>
-</p>
+<h1>
+  <%= @office.company.name %>
+</h1>
 
-<p>
+<h2>
+  <%= @office.name %>
+</h2>
+
+<h2>
   <strong>Address:</strong>
   <%= @office.address %>
-</p>
+</h2>
 
-<p>
-  <strong>Company:</strong>
-  <%= @office.company %>
-</p>
+<ul>
+<% @office.employees.each do |employee| %>
+  <li><%= link_to employee.name, employee %></li>
+<% end %>
+</ul>
 
 <%= link_to 'Edit', edit_office_path(@office) %> |
 <%= link_to 'Back', offices_path %>

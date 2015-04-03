@@ -4,7 +4,7 @@ class OfficesController < ApplicationController
   # GET /offices
   # GET /offices.json
   def index
-    @offices = Office.all
+    @offices = Office.all.includes(:company)
   end
 
   # GET /offices/1
@@ -69,6 +69,6 @@ class OfficesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def office_params
-      params.require(:office).permit(:name, :address, :company_id)
+      params.require(:office).permit(:name, :address, :city, :company_id)
     end
 end

@@ -17,7 +17,7 @@
       <tr>
         <td><%= office.name %></td>
         <td><%= office.address %></td>
-        <td><%= office.company %></td>
+        <td><%= office.company.name %></td>
         <td><%= link_to 'Show', office %></td>
         <td><%= link_to 'Edit', edit_office_path(office) %></td>
         <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>

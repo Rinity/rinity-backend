@@ -5,7 +5,12 @@ one:
   domain: my.com
   address: MyString
 
-two:
+rinity:
   name: Rinity Inc.
   domain: rinity.com
   address: Over the rainbow
+
+itsh:
+  name: IT Services Hungary Kft.
+  domain: t-systems.com
+  address: 1114 Budapest, Neumann János utca 1/c

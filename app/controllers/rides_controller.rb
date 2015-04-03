@@ -35,6 +35,7 @@ class RidesController < ApplicationController
         format.html { redirect_to @ride, notice: 'Ride was successfully created.' }
         format.json { render :show, status: :created, location: @ride }
       else
+        puts @ride.errors.full_messages
         format.html { render :new }
         format.json { render json: @ride.errors, status: :unprocessable_entity }
       end
@@ -49,6 +50,7 @@ class RidesController < ApplicationController
         format.html { redirect_to @ride, notice: 'Ride was successfully updated.' }
         format.json { render :show, status: :ok, location: @ride }
       else
+        puts @ride.errors.full_messages
         format.html { render :edit }
         format.json { render json: @ride.errors, status: :unprocessable_entity }
       end
@@ -58,9 +60,10 @@ class RidesController < ApplicationController
   # DELETE /rides/1
   # DELETE /rides/1.json
   def destroy
-    @ride.destroy
+    # @ride.destroy
+    @ride.cancel
     respond_to do |format|
-      format.html { redirect_to rides_url, notice: 'Ride was successfully destroyed.' }
+      format.html { redirect_to rides_url, notice: 'Ride was successfully canceled.' }
       format.json { head :no_content }
     end
   end
@@ -73,6 +76,6 @@ class RidesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ride_params
-      params.require(:ride).permit(:direction, :time, :type, :freeSeats, :fromAddress, :toAddress, :fromCity, :toCity, :user_id, :status, :ride_id)
+      params.require(:ride).permit(:direction, :time, :type, :freeSeats, :fromAddress, :toAddress, :fromCity, :toCity, :user_id, :status, :ride_id, :office_id)
     end
 end

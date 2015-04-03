@@ -11,7 +11,8 @@ class SessionController < ApplicationController
       if @user
         session[:user_id] = @user.id
         session[:user_type] = @user.type
-        format.html { redirect_to rides_path, notice: 'Successful login.' }
+        session[:user_name] = "#{@user.name}(#{@user.email})"
+        format.html { redirect_to dashboard_index_path, notice: 'Successful login.' }
         format.json { render :show, status: :created, location: rides_path }
       else
         format.html { render :new, notice: 'Something wrong...'}

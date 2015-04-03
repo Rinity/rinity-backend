@@ -1,11 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  address: MyString
-  company: one
+vezer:
+  name: Vezér Utca
+  address: Vezér utca vége
+  city: Debrecen
+  company: itsh
 
-two:
-  name: MyString
-  address: MyString
-  company: two
+lyon:
+  name: Lyons Office
+  address: Vágóhíd utca 6.
+  city: Debrecen
+  company: itsh
+
+budapest:
+  name: InfoPark
+  address: Neumann János utca 1/c
+  city: Budapest
+  company: itsh
+
+szeged:
+  name: Szegedi Iroda
+  address: Volt MATAV
+  city: Szeged
+  company: itsh
+
+rinity_office_1:
+  name: Office
+  address: civis 2
+  city: Debrecen
+  company: rinity

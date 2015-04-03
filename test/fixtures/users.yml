@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  email: a@example.net
-  address: MyString
-  city: MyString
+  name: Rinity Employee
+  email: a@rinity.com
+  address: 1st address
+  city: Debrecen
   default_office: one
   type: Passenger
-  company: one
+  company: rinity
 
 two:
   name: Csaba Nagy
@@ -16,4 +16,40 @@ two:
   city: Debrecen
   default_office: two
   type: Passenger
-  company: two
+  company: rinity
+
+driver_1:
+  name: Csaba Nagy
+  email: csaba@t-systems.com
+  address: 2 civis
+  city: Debrecen
+  default_office: vezer
+  type: Driver
+  company: itsh
+
+driver_2:
+  name: Jason Statham
+  email: jason@t-systems.com
+  address: 42 nagyerdei
+  city: Debrecen
+  default_office: lyons
+  type: Driver
+  company: itsh
+
+passenger_1:
+  name: Passenger1
+  email: 1@t-systems.com
+  address: 1st address
+  city: Debrecen
+  default_office: vezer
+  type: Passenger
+  company: itsh
+
+passenger_2:
+  name: Passenger2
+  email: 2@t-systems.com
+  address: 2nd address
+  city: Debrecen
+  default_office: lyons
+  type: Passenger
+  company: itsh

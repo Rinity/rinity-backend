@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OfficesControllerTest < ActionController::TestCase
   setup do
-    @office = offices(:one)
+    @office = offices(:lyon)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class OfficesControllerTest < ActionController::TestCase
 
   test "should create office" do
     assert_difference('Office.count') do
-      post :create, office: { address: @office.address, company_id: @office.company_id, name: @office.name }
+      post :create, office: { address: @office.address, city: @office.city, company_id: @office.company_id, name: @office.name }
     end
 
     assert_redirected_to office_path(assigns(:office))
