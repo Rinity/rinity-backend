@@ -25,4 +25,29 @@ class RideTest < ActiveSupport::TestCase
     assert ride.valid?
     assert_equal ride.office, user.company.offices.last
   end
+  test 'matches rides' do
+    rr1 = rides(:request_1)
+    rr2 = rides(:request_2)
+    ro1 = rides(:offer_1)
+
+    rr3 = rides(:request_3)
+    rr4 = rides(:request_4)
+    ro2 = rides(:offer_2)
+
+    #assert ro1.connect(rr1)
+    #assert ro1.connect(rr2)
+    #assert_not ro2.connect(rr3)
+    #assert_not ro2.connect(rr4)
+
+    assert Ride.match_all_by_office(rr1.office)
+
+    assert_not_nil Ride.find(rr1.id).ride_id, "#{rr1.id} request is not matched to #{ro1.id}"
+    assert_not_nil Ride.find(rr2.id).ride_id, "#{rr2.id} request is not matched to #{ro1.id}"
+    assert_equal Ride.find(rr1.id).ride_id, ro1.id
+    assert_equal Ride.find(rr2.id).ride_id, ro1.id
+
+    assert_nil Ride.find(rr3.id).ride_id
+    assert_nil Ride.find(rr4.id).ride_id
+    assert_empty Ride.find(ro2.id).ride_requests
+  end
 end

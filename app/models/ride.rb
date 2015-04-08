@@ -85,31 +85,39 @@ class Ride < ActiveRecord::Base
     @office = Office.all
     # iterate all offices
     @office.each do |office|
-      logger.debug "Processing office #{office.name} (#{office.address})"
-
-      @request = office.ride_requests
-
-      %w(to_home to_office).each do |direction|
-
-        logger.debug "Processing direction #{direction}"
-
-        one_way = @request.where(direction: direction)
-        one_way.each do |request|
-
-          logger.debug "Processing request: #{request.id}"
-          offer = office.ride_offers.where(direction: direction, tocity: request.toCity, time: (request.time - 15.minutes)..(request.time + 15.minutes))
-          logger.debug offer
-          if offer.first
-            logger.debug "Found offer #{offer.first.id}"
-            request.connect(offer.first)
-          end
-          logger.debug 'done'
-
-        end
-
-      end
-
+      puts "Processing office #{office.name} (#{office.address})"
+      self.match_all_by_office(office)
     end
     true
+  end
+
+  def self.match_all_by_office(office)
+     @request = office.ride_requests
+
+     %w(to_home to_office).each do |direction|
+       #puts "Processing direction #{direction}"
+
+       one_way = @request.where(:direction => direction)
+       one_way.each_with_index do |request,i|
+
+         #puts "\t#{i}. Processing request: #{request.id}"
+         offer = office.ride_offers.where(:direction => direction,
+                                          :toCity => request.toCity,
+                                          :time => (request.time - 15.minutes)..(request.time + 15.minutes))#.order(:freeSeats => :desc)
+         #puts "\tFound #{offer.count} offer(s)"
+         if offer.any?
+           #puts "Connecting offer #{offer.first.id} with #{request.id}"
+           #if request.connect(offer.first)
+           #  puts "Connected offer #{offer.first.id} with #{request.id}"
+           #else
+           #  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!#{request.errors.full_messages}#{offer.first.errors.full_messages}"
+           #end
+           request.connect(offer.take)
+         else
+           request.update_attribute(:status, 'error')
+         end
+         #logger.debug '\t Done'
+       end
+     end
   end
 end

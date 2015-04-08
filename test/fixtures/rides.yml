@@ -1,39 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  direction: MyString
-  time: 2015-03-25 16:59:50
-  type: RideRequest
-  freeSeats: 1
-  fromAddress: MyString
-  toAddress: MyString
-  fromCity: MyString
-  toCity: MyString
-  user_id: 1
-  status: MyString
-  ride_id: 1
-  office: one
+#one:
+#  direction: to_home | to_office
+#  time: 2015-03-25 16:59:50
+#  type: RideRequest | RideOffer
+#  freeSeats: 3
+#  fromAddress: MyString
+#  toAddress: MyString
+#  fromCity: Debrecen
+#  toCity: Debrecen
+#  user: pasenger_1
+#  status: waiting|active|fulfilled|canceled
+#  ride_id: 1
+#  office: one
 
-two:
-  direction: MyString
-  time: 2015-03-25 16:59:50
-  type: RideOffer
-  freeSeats: 1
-  fromAddress: MyString
-  toAddress: MyString
-  fromCity: MyString
-  toCity: MyString
-  user_id: 1
-  status: MyString
-  ride_id: 1
-  office: two
-
+# req1 and req2 should be matched to offer1
 # req1: going home
 request_1:
   direction: to_home
   office: vezer
   time: 2015-03-25 16:59:50
   type: RideRequest
+  fromCity: Debrecen
+  toCity: Debrecen
+  status: waiting
   user: passenger_1
 
 #req2: going home
@@ -41,5 +31,51 @@ request_2:
   direction: to_home
   time: 2015-03-25 16:59:50
   type: RideRequest
-  office: lyons
+  office: vezer
+  fromCity: Debrecen
+  toCity: Debrecen
+  status: waiting
   user: passenger_2
+
+#ofr1: going home
+offer_1:
+  direction: to_home
+  time: 2015-03-25 16:59:50
+  type: RideOffer
+  freeSeats: 3
+  office: vezer
+  fromCity: Debrecen
+  toCity: Debrecen
+  status: waiting
+  user: driver_1
+
+request_3:
+  direction: to_office
+  office: lyons
+  time: 2015-03-25 07:59:50
+  type: RideRequest
+  fromCity: Debrecen
+  toCity: Debrecen
+  status: waiting
+  user: passenger_1
+
+request_4:
+  direction: to_office
+  office: lyons
+  time: 2015-03-25 07:59:50
+  type: RideRequest
+  fromCity: Szeged
+  toCity: Debrecen
+  status: waiting
+  user: passenger_2
+
+offer_2:
+  direction: to_office
+  office: lyons
+  freeSeats: 3
+  time: 2015-03-25 08:20:00
+  type: RideOffer
+  fromCity: Debrecen
+  toCity: Debrecen
+  status: waiting
+  user: driver_2
