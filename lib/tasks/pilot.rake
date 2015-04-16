@@ -49,7 +49,7 @@ namespace :pilot do
           @drivers.each do |driver|
             driver.ride_offers.create(:direction=> direction_morning, :time=> ride_time_morning, :freeSeats => 3)
             driver.ride_offers.create(:direction=> direction_evening, :time=> ride_time_evening, :freeSeats => 3)
-          endo
+          end
           begin
             puts 'Matching rides...'
             Ride.match_all
