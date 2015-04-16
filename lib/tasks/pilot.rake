@@ -13,7 +13,7 @@ namespace :pilot do
       ratio = rat || 0
       puts "Using ratio #{DP_RATIO[ratio]}"
       if @company
-        puts "Starting pilot at #{@company.name}"
+        puts "Starting pilot at #{@company.name} with #{number_of_employees} (#{number_of_employees * DP_RATIO[ratio]} passenger / #{number_of_employees - (number_of_employees * DP_RATIO[ratio])} drivers)"
         @offices = @company.offices
 
         Ride.destroy_all
@@ -49,7 +49,7 @@ namespace :pilot do
           @drivers.each do |driver|
             driver.ride_offers.create(:direction=> direction_morning, :time=> ride_time_morning, :freeSeats => 3)
             driver.ride_offers.create(:direction=> direction_evening, :time=> ride_time_evening, :freeSeats => 3)
-          end
+          endo
           begin
             puts 'Matching rides...'
             Ride.match_all
@@ -65,7 +65,7 @@ namespace :pilot do
             puts 'Matching rides done'
           end
           @offices.each do |office|
-            puts "#{office.name} has #{office.ride_requests.count} requests wth #{office.ride_offers.count} offers"
+            puts "#{office.name} has #{office.ride_requests.count} waiting requests with #{office.ride_offers.count} offers"
             puts "======> Unmatched #{office.ride_requests.unmatched.count} Error: #{RideRequest.where(office: office, status: 'error').count}"
           end
         end
