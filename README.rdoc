@@ -1,28 +1,30 @@
-== README
+== Rinity
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the backend and API for Rinity.
 
-Things you may want to cover:
+=== Ruby version
 
-* Ruby version
+2.2.0
 
-* System dependencies
+=== Rail version
 
-* Configuration
+4.2.0
 
-* Database creation
+=== Versioning
 
-* Database initialization
+RVM
 
-* How to run the test suite
+=== Test
 
-* Services (job queues, cache servers, search engines, etc.)
+rake test
 
-* Deployment instructions
+=== Run a pilot
 
-* ...
+  rake pilot:run['company_name',number_of_employees,ratio]
 
+where
+* company_name should exists, and must have at least one office
+* number_of_employees > 0
+* ratio: 0 => 70-30, 1=> 60-40, 2=> 50-50 passenger:driver ratio among the employees
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+The task will register number_of_employees, and run a simulation for a 10 day session, creating a ride for each user for the morning commute and the evening commute, then match the passengers with the drivers.
