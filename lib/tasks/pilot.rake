@@ -25,7 +25,7 @@ namespace :pilot do
         @drivers = []
         (1..number_of_employees).each do |count|
           employee = Faker::Name.name
-          attrs = {:name => employee, :email => "#{employee.gsub(' ','_')}@#{@company.domain}", :address => Faker::Address.street_address, :city => 'Debrecen', :default_office => @offices[count % @offices.count]}
+          attrs = {name: employee, email: "#{employee.gsub(' ','_')}@#{@company.domain}", address: Faker::Address.street_address, city: 'Debrecen', default_office: @offices[count % @offices.count]}
           if count < (number_of_employees * DP_RATIO[ratio])
             @passengers << Passenger.create(attrs)
           else
@@ -46,21 +46,21 @@ namespace :pilot do
           direction_evening = 'to_home'
 
           @passengers.each do |passenger|
-            passenger.ride_requests.create(:direction => direction_morning, :time => ride_time_morning)
-            passenger.ride_requests.create(:direction => direction_evening, :time => ride_time_evening)
+            passenger.ride_requests.create(direction: direction_morning, time: ride_time_morning)
+            passenger.ride_requests.create(direction: direction_evening, time: ride_time_evening)
           end
           @drivers.each do |driver|
-            driver.ride_offers.create(:direction=> direction_morning, :time=> ride_time_morning, :freeSeats => 3)
-            driver.ride_offers.create(:direction=> direction_evening, :time=> ride_time_evening, :freeSeats => 3)
+            driver.ride_offers.create(direction: direction_morning, time: ride_time_morning, freeSeats: 3)
+            driver.ride_offers.create(direction: direction_evening, time: ride_time_evening, freeSeats: 3)
           end
           begin
             puts 'Matching rides...'
             Ride.match_all
-            #@offices.each do |office|
+            # @offices.each do |office|
             #  puts "In #{office.name} has #{office.ride_requests.count} requests wth #{office.ride_offers.count} offers"
             #  Ride.match_all_by_office office
             #  puts "======> Unmatched #{office.ride_requests.unmatched.count}"
-            #end
+            # end
           rescue Exception => e
             puts 'That didn\'t go well..'
             puts e.message
@@ -72,8 +72,8 @@ namespace :pilot do
             puts "======> Unmatched #{office.ride_requests.unmatched.count} Error: #{RideRequest.where(office: office, status: 'error').count}"
           end
         end
-        #Ride.destroy_all
-        #User.destroy_all
+        # Ride.destroy_all
+        # User.destroy_all
       else
         puts "Company '#{args.company}' not found."
       end

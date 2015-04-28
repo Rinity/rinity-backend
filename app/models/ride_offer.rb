@@ -6,9 +6,9 @@ class RideOffer < Ride
 
   validates_presence_of :direction, :time, :type, :user, :office
   validates_associated :office, :user
-  #validates_each :freeSeats do |record, attr, value|
+  # validates_each :freeSeats do |record, attr, value|
   #  record.errors.add attr, 'must be at least 0'  if value < 0
-  #end
+  # end
   scope :has_free_seat, -> {where('freeSeats > 0')}
 
   # returns true if rides can be connected false if not

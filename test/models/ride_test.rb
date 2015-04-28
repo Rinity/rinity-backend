@@ -34,10 +34,10 @@ class RideTest < ActiveSupport::TestCase
     rr4 = rides(:request_4)
     ro2 = rides(:offer_2)
 
-    #assert ro1.connect(rr1)
-    #assert ro1.connect(rr2)
-    #assert_not ro2.connect(rr3)
-    #assert_not ro2.connect(rr4)
+    # assert ro1.connect(rr1)
+    # assert ro1.connect(rr2)
+    # assert_not ro2.connect(rr3)
+    # assert_not ro2.connect(rr4)
 
     assert Ride.match_all_by_office(rr1.office)
 

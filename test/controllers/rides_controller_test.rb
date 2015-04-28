@@ -31,7 +31,7 @@ class RidesControllerTest < ActionController::TestCase
                             toCity:     @ride.toCity,
                             type:       @ride.type,
                             user_id:    @ride.user_id,
-                            office_id:  @ride.office_id }, session: {:user_id => users(:passenger_1).id, :user_type => users(:passenger_1).type }
+                            office_id:  @ride.office_id }, session: {user_id: users(:passenger_1).id, user_type: users(:passenger_1).type }
     end
 
     assert_redirected_to ride_path(assigns(:ride))

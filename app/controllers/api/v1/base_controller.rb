@@ -14,7 +14,6 @@ class Api::V1::BaseController < ApplicationController
     render json: { error: 'Bad credentials' }, status: 401
   end
 
-
   def authenticate_user!
     @current_user = User.first
   end

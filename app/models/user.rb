@@ -3,10 +3,11 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_associated :company
   has_many :rides
+  has_many :offices, through: :company
   belongs_to :company, inverse_of: :employees
-  belongs_to :default_office, :class_name => Office, inverse_of: :employees
+  belongs_to :default_office, class_name: Office, inverse_of: :employees
 
-  before_validation :assign_company_and_set_passenger, :on => :create
+  before_validation :assign_company_and_set_passenger, on: :create
   before_create :generate_authentication_token
   # To have a default office
   # validates_presence_of :name, :email, :address, :city, :company, :default_office
