@@ -1,6 +1,6 @@
 class Company < ActiveRecord::Base
-  validates_presence_of :name, :address, :domain, :offices
-  validates_uniqueness_of :domain
+  validates :name, :address, :domain, :offices, presence: true
+  validates :domain, uniqueness: true
   validates_associated :offices
   has_many :employees, class_name: User, inverse_of: :company
   has_many :offices, inverse_of: :company

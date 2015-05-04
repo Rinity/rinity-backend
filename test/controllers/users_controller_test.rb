@@ -6,41 +6,41 @@ class UsersControllerTest < ActionController::TestCase
     @company = companies(:itsh)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
   end
 
-  test "should create user" do
+  test 'should create user' do
     assert_difference('User.count') do
-      post :create, user: { address: @user.address, city: @user.city, email: @user.email+'1', name: @user.name, company_id: @user.company_id, default_office_id: @user.default_office_id}
+      post :create, user: { address: @user.address, city: @user.city, email: @user.email + '1', name: @user.name, company_id: @user.company_id, default_office_id: @user.default_office_id }
     end
 
     assert_redirected_to user_path(assigns(:user))
   end
 
-  test "should show user" do
+  test 'should show user' do
     get :show, id: @user
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @user
     assert_response :success
   end
 
-  test "should update user" do
+  test 'should update user' do
     patch :update, id: @user, user: { address: @user.address, city: @user.city, email: @user.email, name: @user.name, company: @user.company }
     assert_redirected_to passenger_path(assigns(:user))
   end
 
-  test "should destroy user" do
+  test 'should destroy user' do
     assert_difference('User.count', -1) do
       delete :destroy, id: @user
     end

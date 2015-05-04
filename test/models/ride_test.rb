@@ -12,7 +12,7 @@ class RideTest < ActiveSupport::TestCase
   end
   test 'sets default ride if none given' do
     user = users(:passenger_1)
-    ride = user.ride_requests.new(time: Time.now, direction: 'to_home')
+    ride = user.ride_requests.new(time: Time.zone.now, direction: 'to_home')
     assert_nil ride.office
     ride.save
     assert ride.valid?
@@ -20,7 +20,7 @@ class RideTest < ActiveSupport::TestCase
   end
   test 'sets office when given' do
     user = users(:passenger_1)
-    ride = user.ride_requests.new(time: Time.now, direction: 'to_home', office: user.company.offices.last)
+    ride = user.ride_requests.new(time: Time.zone.now, direction: 'to_home', office: user.company.offices.last)
     ride.save
     assert ride.valid?
     assert_equal ride.office, user.company.offices.last

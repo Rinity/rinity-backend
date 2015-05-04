@@ -10,7 +10,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def unauthenticated!
-    response.headers['WWW-Authenticate'] = "Token realm=Application"
+    response.headers['WWW-Authenticate'] = 'Token realm=Application'
     render json: { error: 'Bad credentials' }, status: 401
   end
 
@@ -20,7 +20,7 @@ class Api::V1::BaseController < ApplicationController
   def authenticate_user_real!
     token, options = ActionController::HttpAuthentication::Token.token_and_options(request)
 
-    user_email = options.blank?? nil : options[:email]
+    user_email = options.blank? ? nil : options[:email]
     user = user_email && User.find_by(email: user_email)
 
     if user && ActiveSupport::SecurityUtils.secure_compare(user.authentication_token, token)

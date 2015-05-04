@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_filter :authenticate_user!, only: [:index, :show, :create]
+  before_action :authenticate_user!, only: [:index, :show, :create]
   def show
     user = @current_user
     render json: user, serializer: Api::V1::UserSerializer

@@ -11,7 +11,7 @@ class CompanyTest < ActiveSupport::TestCase
   #   assert_includes company.errors.full_messages, 'Offices can\'t be blank', 'company has at least one office'
   # end
   test 'has name address domain and office' do
-    company = Company.new(name: 'Rinity', address: 'Over the rainbow', domain:'_rinity.com', offices_attributes:[{name: 'HQ', address: 'Archam', city: 'Gotham City'}])
+    company = Company.new(name: 'Rinity', address: 'Over the rainbow', domain:'_rinity.com', offices_attributes:[{ name: 'HQ', address: 'Archam', city: 'Gotham City' }])
     assert company.valid? == true, company.errors.full_messages
   end
   test 'company has many employees' do

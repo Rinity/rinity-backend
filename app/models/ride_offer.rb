@@ -4,7 +4,7 @@ class RideOffer < Ride
   has_many :ride_requests, foreign_key: :ride_id
   has_many :passengers, through: :ride_requests, source: :user
 
-  validates_presence_of :direction, :time, :type, :user, :office
+  validates :direction, :time, :type, :user, :office, presence: true
   validates_associated :office, :user
   # validates_each :freeSeats do |record, attr, value|
   #  record.errors.add attr, 'must be at least 0'  if value < 0
@@ -33,13 +33,13 @@ class RideOffer < Ride
         false
       end
     else
-      puts 'Cannot connect ride'
-      puts "free seats: #{self.freeSeats > 0}"
-      puts "time distance: #{time_distance}"
-      puts "direction: #{self.direction == rr.direction}"
-      puts "to city: #{self.toCity == rr.toCity}"
-      puts "from city: #{self.fromCity == rr.fromCity}"
-      puts "office: #{self.office_id == rr.office_id}"
+      logger.error 'Cannot connect ride'
+      logger.error "free seats: #{self.freeSeats > 0}"
+      logger.error "time distance: #{time_distance}"
+      logger.error "direction: #{self.direction == rr.direction}"
+      logger.error "to city: #{self.toCity == rr.toCity}"
+      logger.error "from city: #{self.fromCity == rr.fromCity}"
+      logger.error "office: #{self.office_id == rr.office_id}"
       false
     end
   end

@@ -11,7 +11,7 @@ class Ride < ActiveRecord::Base
 #   t.integer :office_id ==> belongs_to
 #   t.string :status ==> waiting | active | closed | canceled
 #   t.integer :ride_id ==> set if ride is associated
-  validates_presence_of :direction, :time, :type, :user, :office
+  validates :direction, :time, :type, :user, :office, presence: true
   # validates_presence_of :fromAddress, :fromCity, :toAddress, :toCity
   validates_associated :office, :user
 
@@ -73,7 +73,7 @@ class Ride < ActiveRecord::Base
       self.toAddress = self.office.address
       self.toCity = self.office.city
     end
-    self.status= 'waiting'
+    self.status = 'waiting'
   end
 
   def cancel
@@ -85,7 +85,7 @@ class Ride < ActiveRecord::Base
     @office = Office.all
     # iterate all offices
     @office.each do |office|
-      puts "Processing office #{office.name} (#{office.address})"
+      logger.info "Processing office #{office.name} (#{office.address})"
       self.match_all_by_office(office)
     end
     true

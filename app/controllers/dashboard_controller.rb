@@ -4,9 +4,9 @@ class DashboardController < ApplicationController
   def index
     @rides = @user.rides.waiting.includes(:office)
     if session[:user_type] == 'Passenger'
-      @ride = RideRequest.new(user_id: @user.id, office_id: @user.default_office_id, time: Time.now.localtime)
+      @ride = RideRequest.new(user_id: @user.id, office_id: @user.default_office_id, time: Time.zone.now.localtime)
     else
-      @ride = RideOffer.new(user: @user, office_id: @user.default_office_id, time: Time.now.localtime)
+      @ride = RideOffer.new(user: @user, office_id: @user.default_office_id, time: Time.zone.now.localtime)
     end
     @offices = @user.company.offices
   end

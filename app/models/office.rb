@@ -1,5 +1,5 @@
 class Office < ActiveRecord::Base
-  validates_presence_of :name, :address, :city, :company
+  validates :name, :address, :city, :company, presence: true
   belongs_to :company, inverse_of: :offices
   has_many :employees, class_name: User, inverse_of: :default_office, foreign_key: :default_office_id
   has_many :ride_requests, -> { where(status: 'waiting') }, inverse_of: :office

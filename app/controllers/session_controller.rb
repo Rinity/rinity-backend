@@ -16,7 +16,7 @@ class SessionController < ApplicationController
         format.json { render :show, status: :created, location: rides_path }
       else
         format.html { render :new, notice: 'Something wrong...'}
-        format.json { render json: {error: 'Something wrong...'}, status: :unprocessable_entity }
+        format.json { render json: { error: 'Something wrong...' }, status: :unprocessable_entity }
       end
     end
   end

@@ -5,13 +5,13 @@ class RidesControllerTest < ActionController::TestCase
     @ride = rides(:request_1)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:rides)
   end
 
-  test "should get new" do
+  test 'should get new' do
     session[:user_id] = users(:passenger_1).id
     session[:user_type] = users(:passenger_1).type
     get :new
@@ -31,23 +31,23 @@ class RidesControllerTest < ActionController::TestCase
                             toCity:     @ride.toCity,
                             type:       @ride.type,
                             user_id:    @ride.user_id,
-                            office_id:  @ride.office_id }, session: {user_id: users(:passenger_1).id, user_type: users(:passenger_1).type }
+                            office_id:  @ride.office_id }, session: { user_id: users(:passenger_1).id, user_type: users(:passenger_1).type }
     end
 
     assert_redirected_to ride_path(assigns(:ride))
   end
 
-  test "should show ride" do
+  test 'should show ride' do
     get :show, id: @ride
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @ride
     assert_response :success
   end
 
-  test "should update ride" do
+  test 'should update ride' do
     patch :update, id: @ride, ride: { direction: @ride.direction, freeSeats: @ride.freeSeats, fromAddress: @ride.fromAddress, fromCity: @ride.fromCity, ride_id: @ride.ride_id, status: @ride.status, time: @ride.time, toAddress: @ride.toAddress, toCity: @ride.toCity, type: @ride.type, user_id: @ride.user_id, office_id: @ride.office_id }
     assert_redirected_to ride_path(assigns(:ride))
   end

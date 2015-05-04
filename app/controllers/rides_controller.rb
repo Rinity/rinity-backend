@@ -35,7 +35,7 @@ class RidesController < ApplicationController
         format.html { redirect_to @ride, notice: 'Ride was successfully created.' }
         format.json { render :show, status: :created, location: @ride }
       else
-        puts @ride.errors.full_messages
+        logger.error @ride.errors.full_messages
         format.html { render :new }
         format.json { render json: @ride.errors, status: :unprocessable_entity }
       end
@@ -50,7 +50,7 @@ class RidesController < ApplicationController
         format.html { redirect_to @ride, notice: 'Ride was successfully updated.' }
         format.json { render :show, status: :ok, location: @ride }
       else
-        puts @ride.errors.full_messages
+        logger.error @ride.errors.full_messages
         format.html { render :edit }
         format.json { render json: @ride.errors, status: :unprocessable_entity }
       end

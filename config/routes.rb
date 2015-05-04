@@ -7,12 +7,12 @@ Rails.application.routes.draw do
   post 'session/create'
   get 'session/destroy'
 #  resource :session, only: [:new, :create, :destroy]
-#  resources :offices
+  resources :offices
 
-#  resources :companies
+  resources :companies
 
   resources :rides
-#  resources :ride_requests, controller: 'rides', type: 'RideRequest'
+  resources :ride_requests, controller: 'rides', type: 'RideRequest'
 #  resources :ride_offers, controller: 'rides', type: 'RideOffer'
   resources :users
   resources :drivers, controller: 'users', type: 'Driver'

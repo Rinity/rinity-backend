@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  validates_presence_of :name, :email, :address, :city, :company
-  validates_uniqueness_of :email
+  validates :name, :email, :address, :city, :company, presence: true
+  validates :email, uniqueness: true
   validates_associated :company
   has_many :rides
   has_many :offices, through: :company
@@ -16,14 +16,14 @@ class User < ActiveRecord::Base
   # belongs_to :default_office, :class_name => Office
 
   def assign_company_and_set_passenger
-    self.type= 'Passenger'
+    self.type = 'Passenger'
     if self.email
       domain = self.email.split('@')[1]
       company = Company.find_or_initialize_by(domain: domain)
       if company.new_record?
-        logger.debug 'creating company with '+domain
-        company.name= domain
-        company.address= 'unknown'
+        logger.debug 'creating company with ' + domain
+        company.name = domain
+        company.address = 'unknown'
       end
       self.company = company
       self.default_office = company.offices.first if self.default_office.nil?
