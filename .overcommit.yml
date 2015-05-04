@@ -19,7 +19,7 @@ PreCommit:
   Rubocop:
     enabled: true
 #    on_warn: fail # Treat all warnings as failures
-    flags: ['--format=smple', '--force-exclusion', '--display-cop-names', '-R']
+    flags: ['--format=simple', '--except Metrics/LineLength', '--force-exclusion', '--display-cop-names', '-R']
     Include:
       - '**/Rakefile'
       - '**/config.ru'

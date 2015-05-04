@@ -44,5 +44,4 @@ class RideOffer < Ride
       false
     end
   end
-
 end

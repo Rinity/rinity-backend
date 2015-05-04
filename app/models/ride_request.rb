@@ -45,5 +45,4 @@ class RideRequest < Ride
       false
     end
   end
-
 end

@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
   private
 
   def get_user
-    #@user = User.includes(:rides).find(session[:user_id])
+    # @user = User.includes(:rides).find(session[:user_id])
     @user = User.joins(:company).find(session[:user_id])
   end
 end

@@ -1,5 +1,6 @@
 AllCops:
   Include:
+    - 'app'
     - '**/Rakefile'
     - '**/config.ru'
   Exclude:
@@ -7,3 +8,6 @@ AllCops:
     - 'config/**/*'
     - 'script/**/*'
     - 'bin/**/*'
+
+Metrics/LineLength:
+  Enabled: false

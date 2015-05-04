@@ -64,13 +64,13 @@ class OfficesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_office
-      @office = Office.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_office
+    @office = Office.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def office_params
-      params.require(:office).permit(:name, :address, :city, :company_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def office_params
+    params.require(:office).permit(:name, :address, :city, :company_id)
+  end
 end

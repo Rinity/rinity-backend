@@ -2,5 +2,5 @@
 require 'rack-mini-profiler'
 
 require ::File.expand_path('../config/environment', __FILE__)
-#use Rack::MiniProfiler
+# use Rack::MiniProfiler
 run Rails.application

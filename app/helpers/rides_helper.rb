@@ -1,3 +1,4 @@
+# rides_helper.rb
 module RidesHelper
   def format_ride(ride)
     ret = "#{ride.status}: #{ride.user.name} (#{ride.user.email}) goes from "

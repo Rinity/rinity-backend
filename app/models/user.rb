@@ -40,5 +40,4 @@ class User < ActiveRecord::Base
       break unless User.find_by(authentication_token: authentication_token)
     end
   end
-
 end

@@ -95,30 +95,30 @@ class Ride < ActiveRecord::Base
   def self.match_all_by_office(office)
     @request = office.ride_requests
 
-     %w(to_home to_office).each do |direction|
-       # puts "Processing direction #{direction}"
+    %w(to_home to_office).each do |direction|
+      # puts "Processing direction #{direction}"
 
-       one_way = @request.where(direction: direction)
-       one_way.each do |request|
+      one_way = @request.where(direction: direction)
+      one_way.each do |request|
 
-         # puts "\t#{i}. Processing request: #{request.id}"
-         offer = office.ride_offers.where(direction: direction,
-                                          toCity: request.toCity,
-                                          time: (request.time - 15.minutes)..(request.time + 15.minutes)) # .order(:freeSeats => :desc)
-         # puts "\tFound #{offer.count} offer(s)"
-         if offer.any?
-           # puts "Connecting offer #{offer.first.id} with #{request.id}"
-           # if request.connect(offer.first)
-           #  puts "Connected offer #{offer.first.id} with #{request.id}"
-           # else
-           #  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!#{request.errors.full_messages}#{offer.first.errors.full_messages}"
-           # end
-           request.connect(offer.take)
-         else
-           request.update_attribute(:status, 'error')
-         end
-         # logger.debug '\t Done'
-       end
-     end
+        # puts "\t#{i}. Processing request: #{request.id}"
+        offer = office.ride_offers.where(direction: direction,
+                                         toCity: request.toCity,
+                                         time: (request.time - 15.minutes)..(request.time + 15.minutes)) # .order(:freeSeats => :desc)
+        # puts "\tFound #{offer.count} offer(s)"
+        if offer.any?
+          # puts "Connecting offer #{offer.first.id} with #{request.id}"
+          # if request.connect(offer.first)
+          #  puts "Connected offer #{offer.first.id} with #{request.id}"
+          # else
+          #  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!#{request.errors.full_messages}#{offer.first.errors.full_messages}"
+          # end
+          request.connect(offer.take)
+        else
+          request.update_attribute(:status, 'error')
+        end
+        # logger.debug '\t Done'
+      end
+    end
   end
 end

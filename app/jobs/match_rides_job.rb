@@ -1,3 +1,4 @@
+# match_rides_job.rb
 class MatchRidesJob < ActiveJob::Base
   RUN_EVERY = 5.minutes
   queue_as :default
@@ -8,5 +9,4 @@ class MatchRidesJob < ActiveJob::Base
     self.class.perform_later(wait: RUN_EVERY)
     logger.debug 'Matching rides done'
   end
-
 end
