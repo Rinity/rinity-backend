@@ -1,0 +1,19 @@
+<h2 id="title">Rinity</h2>
+
+<ul>
+    <li>{{link-to 'Rides' 'rides'}}</li>
+    <li>{{link-to 'Users' 'users'}}</li>
+    <li>{{link-to 'Companies' 'companies'}}</li>
+    <li>{{link-to 'Offices' 'offices'}}</li>
+</ul>
+{{link-to 'New ride' 'rides.new'}}
+
+<form {{action "loginUser" on="submit"}}>
+  {{input type="text" value=username placeholder="Username"}}
+  {{input type="password" autocomplete="off" value=password placeholder="Password"}}
+  {{input type="submit" value='login' class="button"}}
+</form>
+
+<hr>
+
+{{outlet}}

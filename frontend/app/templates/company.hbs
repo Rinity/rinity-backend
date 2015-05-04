@@ -1,0 +1,9 @@
+<h1>{{model.name}}</h1>
+
+<h2>{{model.address}}</h2>
+<ol>
+{{#each user in model.employees}}
+	<li>{{#link-to 'user' user}}{{user.name}}{{/link-to}}</li>
+{{/each}}
+</ol>
+{{outlet}}

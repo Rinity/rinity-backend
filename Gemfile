@@ -8,6 +8,10 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+# For ember.js
+gem 'ember-cli-rails'
+gem 'ember-source', '~> 1.11.3'
+
 # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -50,5 +54,6 @@ group :development, :test do
   gem 'spring'
   gem 'quiet_assets'
   gem 'faker'
+  gem 'bullet'
 end
 

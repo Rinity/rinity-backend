@@ -1,17 +1,19 @@
 Rails.application.routes.draw do
+  root 'ember#bootstrap'
+
   get 'dashboard/index'
 
   get 'session/new'
   post 'session/create'
   get 'session/destroy'
-  resource :session, only: [:new, :create, :destroy]
-  resources :offices
+#  resource :session, only: [:new, :create, :destroy]
+#  resources :offices
 
-  resources :companies
+#  resources :companies
 
   resources :rides
-  resources :ride_requests, controller: 'rides', type: 'RideRequest'
-  resources :ride_offers, controller: 'rides', type: 'RideOffer'
+#  resources :ride_requests, controller: 'rides', type: 'RideRequest'
+#  resources :ride_offers, controller: 'rides', type: 'RideOffer'
   resources :users
   resources :drivers, controller: 'users', type: 'Driver'
   resources :passengers, controller: 'users', type: 'Passenger'
@@ -29,7 +31,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'dashboard#index'
+  get '/*path' => 'ember#bootstrap'
+  #root 'dashboard#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

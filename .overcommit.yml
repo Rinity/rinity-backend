@@ -18,7 +18,22 @@
 PreCommit:
   Rubocop:
     enabled: true
-    on_warn: fail # Treat all warnings as failures
+#    on_warn: fail # Treat all warnings as failures
+    flags: ['--format=smple', '--force-exclusion', '--display-cop-names', '-R']
+    Include:
+      - '**/Rakefile'
+      - '**/config.ru'
+    Exclude:
+      - 'db/schema.rb'
+      - 'config/**/*'
+      - 'script/**/*'
+      - 'bin/**/*'
+
+  RailsSchemaUpToDate:
+    enabled: true
+
+  Reek:
+    enabled: true
 
   TrailingWhitespace:
     enabled: true

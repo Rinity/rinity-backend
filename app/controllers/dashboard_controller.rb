@@ -1,18 +1,20 @@
 class DashboardController < ApplicationController
   before_action :get_user
+
   def index
-  end
-  private
-  def get_user
+    @rides = @user.rides.waiting.includes(:office)
     if session[:user_type] == 'Passenger'
-      @user = Passenger.includes(:company, :ride_requests, :default_office).find(session[:user_id])
-      @ride = RideRequest.new(user_id: @user.id, office: @user.default_office, time: Time.now.localtime)
-      @rides = @user.ride_requests
+      @ride = RideRequest.new(user_id: @user.id, office_id: @user.default_office_id, time: Time.now.localtime)
     else
-      @user = Driver.find(session[:user_id])
-      @ride = RideOffer.new(user: @user, office: @user.default_office, time: Time.now.localtime)
-      @rides = @user.ride_offers
+      @ride = RideOffer.new(user: @user, office_id: @user.default_office_id, time: Time.now.localtime)
     end
     @offices = @user.company.offices
+  end
+
+  private
+
+  def get_user
+    #@user = User.includes(:rides).find(session[:user_id])
+    @user = User.joins(:company).find(session[:user_id])
   end
 end

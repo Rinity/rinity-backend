@@ -1,0 +1,15 @@
+{{#each office in model}}
+    <p>
+		{{#link-to 'office' office}} {{office.name}}, {{office.address}}-{{office.city}},
+		{{/link-to}}
+    <ol>
+	{{#each user in office.employees}}
+            <li>{{#link-to 'user' user}}{{user.name}}{{/link-to}}</li>
+	{{/each}}
+    </ol>
+    </p>
+{{else}}
+    No office found.
+{{/each}}
+
+{{outlet}}

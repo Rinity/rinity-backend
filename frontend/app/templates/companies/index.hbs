@@ -1,0 +1,10 @@
+{{#each company in model}}
+<p>
+	{{#link-to 'company' company}} {{company.name}}, {{company.domain}}
+	{{/link-to}}
+</p>
+{{else}}
+    No company found.
+{{/each}}
+
+{{outlet}}

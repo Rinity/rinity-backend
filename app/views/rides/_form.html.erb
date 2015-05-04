@@ -29,12 +29,12 @@
     </div>
   <% end %>
 
-	<div class="field">
-	  <%= f.label :office %><br>
-	  <%= f.select :office_id, options_from_collection_for_select(@ride.office_options, 'id', :to_s ) %>
-	</div>
+  <div class="field">
+    <%= f.label :office %><br>
+    <%= f.select :office_id, options_from_collection_for_select(@ride.office_options, 'id', :to_s ) %>
+  </div>
 
-	<div class="actions">
+  <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

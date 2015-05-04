@@ -1,0 +1,10 @@
+{{#each user in model}}
+    <p>
+		{{#link-to 'user' user}} {{user.email}}, {{user.name}}, {{user.address}} {{user.city}}, {{user.type}}
+		{{/link-to}}
+    </p>
+{{else}}
+    No user found.
+{{/each}}
+
+{{outlet}}

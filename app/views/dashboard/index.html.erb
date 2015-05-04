@@ -2,23 +2,23 @@
 
 <h2><%= @user.address %>,<%= @user.city %></h2>
 
-<%= form_for @user.becomes(User) do |f| %>
-	<h2>Default Office</h2>
-	<%= f.select :default_office_id, options_from_collection_for_select(@offices, :id, :to_s) %>
-	<%= f.submit 'Set default' %>
+<%= form_for @user do |f| %>
+  <h2>Default Office</h2>
+  <%= f.select :default_office_id, options_from_collection_for_select(@offices, :id, :to_s) %>
+  <%= f.submit 'Set default' %>
 <% end %>
 
 <% if @rides.waiting.exists? %>
-	<ul>
-	  <% @rides.waiting.each do |ride| %>
-		  <li><%= format_ride(ride) %> <%= link_to 'Cancel', ride, method: :delete, data: {confirm: 'Are you sure?'} %></li>
-	  <% end %>
-	</ul>
+  <ul>
+    <% @rides.waiting.each do |ride| %>
+      <li><%= format_ride(ride) %> <%= link_to 'Cancel', ride, method: :delete, data: {confirm: 'Are you sure?'} %></li>
+    <% end %>
+  </ul>
 <% else %>
-	<ul>
-	  <% @rides.each do |ride| %>
-		  <li><%= format_ride(ride) %></li>
-	  <% end %>
-	</ul>
-	<%= render 'rides/form' %>
+  <ul>
+    <% @rides.each do |ride| %>
+      <li><%= format_ride(ride) %></li>
+    <% end %>
+  </ul>
+  <%= render 'rides/form' %>
 <% end %>

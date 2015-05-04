@@ -1,0 +1,13 @@
+{{#each ride in model}}
+  <p>
+  {{#link-to 'ride' ride}} {{ride.direction}},
+  {{ride.time}},{{ride.office}}[{{ride.isActive}}]{{/link-to}}
+    {{#if ride.isActive}}
+      <button {{action "deleteRide" ride}}>Delete</button>
+    {{/if}}
+  </p>
+{{else}}
+No rides found.
+{{/each}}
+
+{{outlet}}

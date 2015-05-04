@@ -3,12 +3,12 @@ class Api::V1::OfficesController < Api::V1::BaseController
     office = Office.find(params[:id])
     render json: office
   end
-  def index 
+  def index
     if session[:user_id]
       offices = User.find(session[:user_id]).company.offices
     else
       offices = Company.second.offices
-      render json: offices
     end
+    render json: offices #, serializer: Api::V1::OfficeSerializer
   end
 end

@@ -1,0 +1,12 @@
+<form {{action 'createRide' on='submit'}}>
+  {{view "select" content=directions value=fields.direction}}
+  {{input type="date" value=fields.date}}
+  {{view "select" content=time value=fields.time}}
+
+  {{view "select" content=offices
+                  optionLabelPath="content.name"
+                  optionValuePath="content.id"
+                  selection=fields.office}}
+  {{input type="submit" value="create ride" class="button"}}
+</form>
+
