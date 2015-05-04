@@ -1,3 +1,4 @@
+# offices_controller.rb
 class Api::V1::OfficesController < Api::V1::BaseController
   def show
     office = Office.find(params[:id])

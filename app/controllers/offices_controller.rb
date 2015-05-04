@@ -1,3 +1,4 @@
+# offices_controller.rb
 class OfficesController < ApplicationController
   before_action :set_office, only: [:show, :edit, :update, :destroy]
 
@@ -62,6 +63,7 @@ class OfficesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_office
       @office = Office.find(params[:id])

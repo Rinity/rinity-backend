@@ -19,9 +19,9 @@ class CompaniesControllerTest < ActionController::TestCase
   test 'should create company' do
     assert_difference('Company.count') do
       office = @company.offices.first
-      response = post :create, company: { address: @company.address, domain: @company.domain + '_', name: @company.name, offices_attributes: [{ name: office.name, address: office.address, city: office.city }] }
-      # head, status, body = *response
-      # puts body.inspect
+      response = post :create, company: { address: @company.address, domain: @company.domain + '_', name: @company.name, city: @company.city, offices_attributes: [{ name: office.name, address: office.address, city: @company.city }] }
+      #head, status, body = *response
+      #puts body.inspect
     end
 
     assert_redirected_to company_path(assigns(:company))

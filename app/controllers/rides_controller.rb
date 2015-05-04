@@ -1,3 +1,4 @@
+# rides_controller.rb
 class RidesController < ApplicationController
   before_action :set_ride, only: [:show, :edit, :update, :destroy]
 
@@ -69,6 +70,7 @@ class RidesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_ride
       @ride = Ride.find(params[:id])

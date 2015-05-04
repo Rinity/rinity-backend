@@ -33,7 +33,7 @@ PreCommit:
     enabled: true
 
   Reek:
-    enabled: true
+    enabled: false
 
   TrailingWhitespace:
     enabled: true

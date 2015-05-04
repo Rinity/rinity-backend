@@ -1,3 +1,4 @@
+# session_controller.rb
 class SessionController < ApplicationController
 
   # GET

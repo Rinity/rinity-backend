@@ -1,3 +1,4 @@
+# ride_offer.rb
 class RideOffer < Ride
   belongs_to :driver, class_name: Driver
   belongs_to :office, inverse_of: :ride_offers
@@ -9,7 +10,7 @@ class RideOffer < Ride
   # validates_each :freeSeats do |record, attr, value|
   #  record.errors.add attr, 'must be at least 0'  if value < 0
   # end
-  scope :has_free_seat, -> {where('freeSeats > 0')}
+  scope :has_free_seat, -> { where('freeSeats > 0') }
 
   # returns true if rides can be connected false if not
   # rides can connect if
@@ -21,25 +22,25 @@ class RideOffer < Ride
   # - toCity is the same
   def connect(ride)
     rr = ride.becomes(RideRequest)
-    time_distance = (rr.time - self.time).abs < 15.minutes
-    if self.freeSeats > 0 && time_distance && self.direction == rr.direction && self.toCity == rr.toCity && self.fromCity == rr.fromCity && self.office_id == rr.office_id
-      self.ride_requests << rr
+    time_distance = (rr.time - time).abs < 15.minutes
+    if freeSeats > 0 && time_distance && direction == rr.direction && toCity == rr.toCity && fromCity == rr.fromCity && office_id == rr.office_id
+      ride_requests << rr
       rr.status = 'active'
       self.status = 'active'
-      self.decrement(:freeSeats)
-      if rr.save && self.save
+      decrement(:freeSeats)
+      if rr.save && save
         true
       else
         false
       end
     else
       logger.error 'Cannot connect ride'
-      logger.error "free seats: #{self.freeSeats > 0}"
+      logger.error "free seats: #{freeSeats > 0}"
       logger.error "time distance: #{time_distance}"
-      logger.error "direction: #{self.direction == rr.direction}"
-      logger.error "to city: #{self.toCity == rr.toCity}"
-      logger.error "from city: #{self.fromCity == rr.fromCity}"
-      logger.error "office: #{self.office_id == rr.office_id}"
+      logger.error "direction: #{direction == rr.direction}"
+      logger.error "to city: #{toCity == rr.toCity}"
+      logger.error "from city: #{fromCity == rr.fromCity}"
+      logger.error "office: #{office_id == rr.office_id}"
       false
     end
   end

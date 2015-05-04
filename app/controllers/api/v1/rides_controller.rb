@@ -1,10 +1,11 @@
+# rides_controller.rb
 class Api::V1::RidesController < Api::V1::BaseController
   before_action :authenticate_user!, only: [:index, :create, :destroy]
   before_action :set_ride, only: [:show, :edit, :update, :destroy]
 
   def index
     @rides = @current_user.rides.includes(:office)
-#    puts Api::V1::RideSerializer.new(@rides.first).to_json
+    #    puts Api::V1::RideSerializer.new(@rides.first).to_json
     render json: @rides, each_serializer: Api::V1::RideSerializer
   end
 

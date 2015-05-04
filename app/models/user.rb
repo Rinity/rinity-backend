@@ -1,3 +1,4 @@
+# user.rb
 class User < ActiveRecord::Base
   validates :name, :email, :address, :city, :company, presence: true
   validates :email, uniqueness: true
@@ -17,16 +18,17 @@ class User < ActiveRecord::Base
 
   def assign_company_and_set_passenger
     self.type = 'Passenger'
-    if self.email
-      domain = self.email.split('@')[1]
+    if email
+      domain = email.split('@')[1]
       company = Company.find_or_initialize_by(domain: domain)
       if company.new_record?
         logger.debug 'creating company with ' + domain
         company.name = domain
         company.address = 'unknown'
+        company.city = city
       end
       self.company = company
-      self.default_office = company.offices.first if self.default_office.nil?
+      self.default_office = company.offices.first if default_office.nil?
     else
       false
     end

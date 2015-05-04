@@ -1,32 +1,38 @@
-class Api::V1::BaseController < ApplicationController
-  protect_from_forgery with: :null_session
+module Api
+  module V1
+    # base_controller.rb
+    class BaseController < ApplicationController
+      protect_from_forgery with: :null_session
+      before_action :destroy_session
+      attr_accessor :current_user
 
-  before_action :destroy_session
+      protected
 
-  attr_accessor :current_user
-  protected
-  def destroy_session
-    request.session_options[:skip] = true
-  end
+      def destroy_session
+        request.session_options[:skip] = true
+      end
 
-  def unauthenticated!
-    response.headers['WWW-Authenticate'] = 'Token realm=Application'
-    render json: { error: 'Bad credentials' }, status: 401
-  end
+      def unauthenticated!
+        response.headers['WWW-Authenticate'] = 'Token realm=Application'
+        render json: { error: 'Bad credentials' }, status: 401
+      end
 
-  def authenticate_user!
-    @current_user = User.first
-  end
-  def authenticate_user_real!
-    token, options = ActionController::HttpAuthentication::Token.token_and_options(request)
+      def authenticate_user!
+        @current_user = User.first
+      end
 
-    user_email = options.blank? ? nil : options[:email]
-    user = user_email && User.find_by(email: user_email)
+      def authenticate_user_real!
+        token, options = ActionController::HttpAuthentication::Token.token_and_options(request)
 
-    if user && ActiveSupport::SecurityUtils.secure_compare(user.authentication_token, token)
-      @current_user = user
-    else
-      return unauthenticated!
+        user_email = options.blank? ? nil : options[:email]
+        user = user_email && User.find_by(email: user_email)
+
+        if user && ActiveSupport::SecurityUtils.secure_compare(user.authentication_token, token)
+          @current_user = user
+        else
+          return unauthenticated!
+        end
+      end
     end
   end
 end

@@ -1,3 +1,4 @@
+# companies_controller.rb
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
 
@@ -63,6 +64,7 @@ class CompaniesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_company
       @company = Company.find(params[:id])
@@ -70,6 +72,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :domain, :address, offices_attributes: [:id, :name, :address, :city, :_destroy])
+      params.require(:company).permit(:name, :domain, :address, :city, offices_attributes: [:id, :name, :address, :city, :_destroy])
     end
 end

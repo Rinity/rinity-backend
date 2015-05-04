@@ -1,16 +1,17 @@
+# ride.rb
 class Ride < ActiveRecord::Base
-#   t.string :direction
-#   t.datetime :time
-#   t.string :type ==> 'Request' | 'Offer'
-#   t.integer :freeSeats
-#   t.string :fromAddress
-#   t.string :toAddress
-#   t.string :fromCity
-#   t.string :toCity
-#   t.integer :user_id ==> belongs_to
-#   t.integer :office_id ==> belongs_to
-#   t.string :status ==> waiting | active | closed | canceled
-#   t.integer :ride_id ==> set if ride is associated
+  #   t.string :direction
+  #   t.datetime :time
+  #   t.string :type ==> 'Request' | 'Offer'
+  #   t.integer :freeSeats
+  #   t.string :fromAddress
+  #   t.string :toAddress
+  #   t.string :fromCity
+  #   t.string :toCity
+  #   t.integer :user_id ==> belongs_to
+  #   t.integer :office_id ==> belongs_to
+  #   t.string :status ==> waiting | active | closed | canceled
+  #   t.integer :ride_id ==> set if ride is associated
   validates :direction, :time, :type, :user, :office, presence: true
   # validates_presence_of :fromAddress, :fromCity, :toAddress, :toCity
   validates_associated :office, :user
@@ -48,37 +49,37 @@ class Ride < ActiveRecord::Base
   end
 
   def office_options
-    self.user.company.offices.sort
+    user.company.offices.sort
   end
 
   def check_user_has_default_office
-    self.errors.add(:office, 'has no default without user') if self.office.nil? && self.user && self.user.default_office.nil?
+    errors.add(:office, 'has no default without user') if office.nil? && user && user.default_office.nil?
   end
 
   def set_default_office_if_not_set
-    if self.user && self.user.default_office && self.office.nil?
-      self.office = self.user.default_office
+    if user && user.default_office && office.nil?
+      self.office = user.default_office
     end
   end
 
   def set_address
-    if 'to_home' == self.direction
-      self.fromAddress = self.office.address
-      self.fromCity = self.office.city
-      self.toAddress = self.user.address
-      self.toCity = self.user.city
+    if 'to_home' == direction
+      self.fromAddress = office.address
+      self.fromCity = office.city
+      self.toAddress = user.address
+      self.toCity = user.city
     else # to_office
-      self.fromAddress = self.user.address
-      self.fromCity = self.user.city
-      self.toAddress = self.office.address
-      self.toCity = self.office.city
+      self.fromAddress = user.address
+      self.fromCity = user.city
+      self.toAddress = office.address
+      self.toCity = office.city
     end
     self.status = 'waiting'
   end
 
   def cancel
     self.status = 'canceled'
-    self.save
+    save
   end
 
   def self.match_all
@@ -86,24 +87,24 @@ class Ride < ActiveRecord::Base
     # iterate all offices
     @office.each do |office|
       logger.info "Processing office #{office.name} (#{office.address})"
-      self.match_all_by_office(office)
+      match_all_by_office(office)
     end
     true
   end
 
   def self.match_all_by_office(office)
-     @request = office.ride_requests
+    @request = office.ride_requests
 
      %w(to_home to_office).each do |direction|
        # puts "Processing direction #{direction}"
 
        one_way = @request.where(direction: direction)
-       one_way.each_with_index do |request,i|
+       one_way.each do |request|
 
          # puts "\t#{i}. Processing request: #{request.id}"
          offer = office.ride_offers.where(direction: direction,
                                           toCity: request.toCity,
-                                          time: (request.time - 15.minutes)..(request.time + 15.minutes))# .order(:freeSeats => :desc)
+                                          time: (request.time - 15.minutes)..(request.time + 15.minutes)) # .order(:freeSeats => :desc)
          # puts "\tFound #{offer.count} offer(s)"
          if offer.any?
            # puts "Connecting offer #{offer.first.id} with #{request.id}"

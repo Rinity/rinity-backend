@@ -14,7 +14,7 @@ class UserTest < ActiveSupport::TestCase
     @company = companies(:itsh)
     user_old = User.create(name: 'bob', email: 'bob@example.com', address: '55 main street', city: 'somewhere', company: @company, default_office: @company.offices.first)
     user_new = User.new(name: 'bob', email: 'bob@example.com', address: '55 main street', city: 'somewhere', company: @company, default_office: @company.offices.first)
-    assert user_old.valid?
+    assert user_old.valid?, 'old user is invalid?'
     assert user_new.invalid?, 'can create user with same email?'
     assert_includes user_new.errors.full_messages, 'Email has already been taken'
   end
