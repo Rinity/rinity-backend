@@ -21,12 +21,6 @@ class User < ActiveRecord::Base
     if email
       domain = email.split('@')[1]
       company = Company.find_or_initialize_by(domain: domain)
-      if company.new_record?
-        logger.debug 'creating company with ' + domain
-        company.name = domain
-        company.address = 'unknown'
-        company.city = city
-      end
       self.company = company
       self.default_office = company.offices.first if default_office.nil?
     else

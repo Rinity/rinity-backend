@@ -19,30 +19,19 @@ class RideRequest < Ride
   # - fromCity is the same
   # - toCity is the same
   def connect(ride)
-    ro = ride.becomes(RideOffer)
     time_distance = (ro.time - time).abs < 15.minutes
+    connect_offer(ride) if time_distance && same_way(ride)
+  end
 
-    if ro.freeSeats > 0 && time_distance && direction == ro.direction && toCity == ro.toCity && fromCity == ro.fromCity && office_id == ro.office_id
-      self.ride_offer = ro
-      self.status = 'active'
-      ro.status = 'active'
-      ro.decrement(:freeSeats)
-      if ro.save && save
-        true
-      else
-        logger.error ro.errors.full_messages
-        logger.error errors.full_messages
-        false
-      end
-    else
-      logger.error 'Cannot connect ride'
-      logger.error "free seats: #{freeSeats > 0}"
-      logger.error "time distance: #{time_distance}"
-      logger.error "direction: #{direction == ro.direction}"
-      logger.error "to city: #{toCity == ro.toCity}"
-      logger.error "from city: #{fromCity == ro.fromCity}"
-      logger.error "office: #{office_id == ro.office_id}"
-      false
-    end
+  def same_way(ride_offer)
+    ride_offer.freeSeats > 0 && direction == ride_offer.direction && toCity == ride_offer.toCity && fromCity == ride_offer.fromCity && office_id == ride_offer.office_id
+  end
+
+  def connect_offer(offer)
+    self.ride_offer = offer
+    self.status = 'active'
+    offer.status = 'active'
+    offer.decrement(:freeSeats)
+    offer.save && save
   end
 end

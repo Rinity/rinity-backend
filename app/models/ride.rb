@@ -14,6 +14,8 @@ class Ride < ActiveRecord::Base
   #   t.integer :ride_id ==> set if ride is associated
   validates :direction, :time, :type, :user, :office, presence: true
   # validates_presence_of :fromAddress, :fromCity, :toAddress, :toCity
+
+  validates :office, :user, presence: true
   validates_associated :office, :user
 
   belongs_to :office
@@ -27,8 +29,10 @@ class Ride < ActiveRecord::Base
 
   validate :check_user_has_default_office
   before_validation :set_default_office_if_not_set
+  before_validation :set_type
   before_create :set_address
 
+  attr_accessor :from_address, :to_address
   # This helps controllers know what type of resource to talk to
   # See more: http://www.alexreisner.com/code/single-table-inheritance-in-rails
   def self.inherited(child)
@@ -41,11 +45,11 @@ class Ride < ActiveRecord::Base
   end
 
   def self.select_options
-    descendants.map { |c| c.to_s }.sort
+    descendants.map(&:to_s).sort
   end
 
   def self.direction_options
-    ['to_home', 'to_office']
+    %w(to_home to_office)
   end
 
   def office_options
@@ -57,22 +61,20 @@ class Ride < ActiveRecord::Base
   end
 
   def set_default_office_if_not_set
-    if user && user.default_office && office.nil?
-      self.office = user.default_office
-    end
+    self.office = user.default_office if user && user.default_office && office.nil?
+  end
+
+  def set_type
+    self.type = user.type == 'Passenger' ? 'RideRequest' : 'RideOffer' if user.present?
   end
 
   def set_address
     if 'to_home' == direction
-      self.fromAddress = office.address
-      self.fromCity = office.city
-      self.toAddress = user.address
-      self.toCity = user.city
+      self.from_address = office
+      self.to_address = user
     else # to_office
-      self.fromAddress = user.address
-      self.fromCity = user.city
-      self.toAddress = office.address
-      self.toCity = office.city
+      self.from_address = user
+      self.to_address = office
     end
     self.status = 'waiting'
   end
@@ -80,6 +82,32 @@ class Ride < ActiveRecord::Base
   def cancel
     self.status = 'canceled'
     save
+  end
+
+  def from_address
+    if 'to_home' == direction
+      "#{office.name} (#{office.address}, #{office.city})"
+    else
+      "#{user.address}, #{user.city}"
+    end
+  end
+
+  def from_address=(addressable)
+    self.fromAddress = addressable.address
+    self.fromCity = addressable.city
+  end
+
+  def to_address
+    if 'to_home' == direction
+      "#{user.address}, #{user.city}"
+    else
+      "#{office.name} (#{office.address}, #{office.city})"
+    end
+  end
+
+  def to_address=(addressable)
+    self.toAddress = addressable.address
+    self.toCity = addressable.city
   end
 
   def self.match_all
@@ -93,31 +121,12 @@ class Ride < ActiveRecord::Base
   end
 
   def self.match_all_by_office(office)
-    @request = office.ride_requests
-
-    %w(to_home to_office).each do |direction|
-      # puts "Processing direction #{direction}"
-
-      one_way = @request.where(direction: direction)
-      one_way.each do |request|
-
-        # puts "\t#{i}. Processing request: #{request.id}"
-        offer = office.ride_offers.where(direction: direction,
-                                         toCity: request.toCity,
-                                         time: (request.time - 15.minutes)..(request.time + 15.minutes)) # .order(:freeSeats => :desc)
-        # puts "\tFound #{offer.count} offer(s)"
-        if offer.any?
-          # puts "Connecting offer #{offer.first.id} with #{request.id}"
-          # if request.connect(offer.first)
-          #  puts "Connected offer #{offer.first.id} with #{request.id}"
-          # else
-          #  puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!#{request.errors.full_messages}#{offer.first.errors.full_messages}"
-          # end
-          request.connect(offer.take)
-        else
-          request.update_attribute(:status, 'error')
-        end
-        # logger.debug '\t Done'
+    office.ride_requests.each do |request|
+      offer = office.ride_offers.for_request(request)
+      if offer.any?
+        request.connect(offer.take)
+      else
+        request.update_attribute(:status, 'error')
       end
     end
   end

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.includes(:company,:default_office)
+    @users = User.all.includes(:company, :default_office)
   end
 
   # GET /users/1
